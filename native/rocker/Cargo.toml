@@ -1,0 +1,15 @@
+[package]
+name = "rocker"
+version = "0.3.0"
+authors = ["Maxim Molchanov <m.molchanov@vonmo.com>"]
+license = "MIT/Apache-2.0"
+
+[lib]
+name = "rocker"
+crate-type = ["dylib"]
+
+[dependencies]
+libc = "0.2"
+rustler = { version = "0.32.1", features = ["nif_version_2_16"]}
+rocksdb = { version = "0.22.0" }
+serde = { version = "1.0", features = ["derive"] }

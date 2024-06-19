@@ -1,0 +1,16 @@
+services:
+  base:
+    build: imgs/base
+    image: ex_rock/base
+
+  test:
+    image: ex_rock/base
+    depends_on:
+      - base
+    env_file:
+      - .env
+    volumes:
+      - "../../:/project:Z"
+    tmpfs:
+      - /run
+      - /tmp
