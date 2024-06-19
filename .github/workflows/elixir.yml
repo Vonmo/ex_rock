@@ -1,0 +1,30 @@
+name: Elixir CI
+on:
+  push:
+    branches: ["develop"]
+  pull_request:
+    branches: ["develop"]
+permissions:
+  contents: read
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: "1.15.7"
+          otp-version: "26.2.3"
+      - uses: actions/cache@v3
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
+      - run: mix deps.get
+      - run: mix format --check-formatted
+      - run: mix deps.unlock --check-unused
+      - run: mix deps.compile
+      - run: FORCE_BUILD=1 mix compile --warnings-as-errors
+      - run: mix credo --strict
+      - run: FORCE_BUILD=1 mix test
