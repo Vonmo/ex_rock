@@ -3,16 +3,12 @@ defmodule ExRock.Test.Helpers do
 
   def clean_dirs(state, %{clean_dirs: [_ | _] = dirs}) do
     dirs
-    |> Enum.each(&cmd("rm -Rf #{&1}/*"))
+    |> Enum.each(&File.rm_rf!(&1))
 
     state
   end
 
   def clean_dirs(state, _), do: state
-
-  # ----------------------------------------------------------------------------
-
-  defp cmd(cmd), do: :os.cmd("bash -c \"#{cmd}\"" |> to_charlist())
 
   # ----------------------------------------------------------------------------
 
