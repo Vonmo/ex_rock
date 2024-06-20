@@ -1,5 +1,5 @@
 defmodule ExRock.Atomic.Test do
-  use ExRock.Case
+  use ExRock.Case, async: true
 
   describe "atomic" do
     test "put_get", context do

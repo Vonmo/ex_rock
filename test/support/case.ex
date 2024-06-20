@@ -30,10 +30,10 @@ defmodule ExRock.Case do
 
   setup tags do
     db_path = Path.join(System.tmp_dir!(), "test_db_#{UUID.uuid4()}")
-    File.mkdir_p!(db_path)
+    ExRock.destroy(db_path)
 
     on_exit(fn ->
-      File.rm_rf!(db_path)
+      ExRock.destroy(db_path)
     end)
 
     %{db_path: db_path}

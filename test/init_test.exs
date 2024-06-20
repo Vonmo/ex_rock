@@ -63,15 +63,17 @@ defmodule ExRock.Init.Test do
   describe "destroy or repair database" do
     test "destroy", context do
       test = self()
+      path = context.db_path <> "_for_destroy"
 
       spawn(fn ->
-        {:ok, db} = ExRock.open(context.db_path)
+        {:ok, db} = ExRock.open(path)
         true = is_reference(db)
         send(test, :ok)
       end)
 
       assert_receive(:ok, 1000)
-      assert :ok == ExRock.destroy(context.db_path)
+      Process.sleep(100)
+      assert :ok == ExRock.destroy(path)
     end
 
     test "repair", context do

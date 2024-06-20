@@ -3,6 +3,7 @@ defmodule ExRock.Test.Helpers do
 
   def clean_dirs(state, %{clean_dirs: [_ | _] = dirs}) do
     dirs
+    |> Enum.each(&ExRock.destroy(&1))
     |> Enum.each(&File.rm_rf!(&1))
 
     state
