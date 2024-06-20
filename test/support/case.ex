@@ -19,6 +19,8 @@ defmodule ExRock.Case do
   using do
     quote do
       import ExRock.Case
+
+      @app :ex_rock
     end
   end
 

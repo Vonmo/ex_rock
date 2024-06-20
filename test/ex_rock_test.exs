@@ -1,5 +1,5 @@
 defmodule ExRockTest do
-  use ExRock.Case
+  use ExRock.Case, async: false
   doctest ExRock
 
   describe "common" do
@@ -10,10 +10,9 @@ defmodule ExRockTest do
 
   describe "app" do
     test "correct loading" do
-      app = :ex_rock
-      Application.stop(app)
-      Application.unload(app)
-      assert :ok == Application.load(app)
+      Application.stop(@app)
+      Application.unload(@app)
+      assert :ok == Application.load(@app)
     end
   end
 end
