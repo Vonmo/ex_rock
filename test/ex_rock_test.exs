@@ -1,5 +1,5 @@
 defmodule ExRockTest do
-  use ExUnit.Case
+  use ExRock.Case
   doctest ExRock
 
   describe "common" do
@@ -8,24 +8,12 @@ defmodule ExRockTest do
     end
   end
 
-  describe "atomic" do
-  end
-
-  describe "iterator" do
-  end
-
-  describe "cf" do
-  end
-
-  describe "snapshot" do
-  end
-
-  describe "checkpoint" do
-  end
-
-  describe "backup" do
-  end
-
-  describe "perf" do
+  describe "app" do
+    test "correct loading" do
+      app = :ex_rock
+      Application.stop(app)
+      Application.unload(app)
+      assert :ok == Application.load(app)
+    end
   end
 end
