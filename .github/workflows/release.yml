@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - "develop"
-    # tags:
-    #   - "*"
+    tags:
+      - "*"
 
 jobs:
   build_release:
@@ -16,30 +16,19 @@ jobs:
       matrix:
         nif: ["2.16", "2.17"]
         job:
-          - {
-              target: aarch64-unknown-linux-gnu,
-              os: ubuntu-20.04,
-              use-cross: true,
-            }
+          - { target: aarch64-apple-darwin, os: macos-11 }
+          - { target: x86_64-apple-darwin, os: macos-11 }
+          - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04 }
           - {
               target: aarch64-unknown-linux-musl,
               os: ubuntu-20.04,
               use-cross: true,
             }
-          - { target: aarch64-apple-darwin, os: macos-11 }
-          - {
-              target: riscv64gc-unknown-linux-gnu,
-              os: ubuntu-20.04,
-              use-cross: true,
-            }
-          - { target: x86_64-apple-darwin, os: macos-11 }
-          - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04 }
           - {
               target: x86_64-unknown-linux-musl,
               os: ubuntu-20.04,
               use-cross: true,
             }
-          - { target: x86_64-pc-windows-gnu, os: windows-2019 }
           - { target: x86_64-pc-windows-msvc, os: windows-2019 }
 
     steps:
@@ -52,17 +41,24 @@ jobs:
           # Get the project version from mix.exs
           echo "PROJECT_VERSION=$(sed -n 's/^  @version "\(.*\)"/\1/p' mix.exs | head -n1)" >> $GITHUB_ENV
 
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v2.0.3
+        with:
+          version: "15"
+          target: ${{ matrix.job.target }}
+
+      - name: Install minimal stable with clippy and rustfmt
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+          components: rustfmt, clippy
           target: ${{ matrix.job.target }}
 
       - name: Build the project
         id: build-crate
         uses: philss/rustler-precompiled-action@v1.0.1
         with:
-          project-name: ex_rock
+          project-name: rocker
           project-version: ${{ env.PROJECT_VERSION }}
           target: ${{ matrix.job.target }}
           nif-version: ${{ matrix.nif }}
@@ -75,9 +71,9 @@ jobs:
           name: ${{ steps.build-crate.outputs.file-name }}
           path: ${{ steps.build-crate.outputs.file-path }}
 
-      # - name: Publish archives and packages
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: |
-      #       ${{ steps.build-crate.outputs.file-path }}
-      #   if: startsWith(github.ref, 'refs/tags/')
+      - name: Publish archives and packages
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ steps.build-crate.outputs.file-path }}
+        if: startsWith(github.ref, 'refs/tags/')
