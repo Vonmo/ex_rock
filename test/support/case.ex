@@ -14,8 +14,6 @@ defmodule ExRock.Case do
 
   use ExUnit.CaseTemplate
 
-  import ExRock.Test.Helpers
-
   using do
     quote do
       import ExRock.Case
@@ -28,7 +26,7 @@ defmodule ExRock.Case do
     context
   end
 
-  setup tags do
+  setup _tags do
     db_path = Path.join(System.tmp_dir!(), "test_db_#{UUID.uuid4()}")
     ExRock.destroy(db_path)
 
@@ -37,6 +35,5 @@ defmodule ExRock.Case do
     end)
 
     %{db_path: db_path}
-    |> clean_dirs(tags)
   end
 end
