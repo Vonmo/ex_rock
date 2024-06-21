@@ -1,5 +1,5 @@
 defmodule ExRock.Performance.Test do
-  use ExRock.Case
+  use ExRock.Case, async: false
 
   describe "performance checks" do
     test "basic check", context do
