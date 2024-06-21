@@ -52,7 +52,7 @@ defmodule ExRock.MixProject do
   defp package do
     [
       maintainers: ["Maxim Molchanov <m.molchanov@vonmo.com>"],
-      licenses: ["Apache License Version 2.0"],
+      licenses: ["Apache-2.0"],
       links: %{"GitHub" => @source_url, "Changelog" => @changelog_url},
       files: [
         "lib",
@@ -62,9 +62,9 @@ defmodule ExRock.MixProject do
         "checksum-*.exs",
         ".formatter.exs",
         "mix.exs",
-        "README*",
-        "LICENSE*",
-        "CHANGELOG*"
+        "README*"
+        # "LICENSE*",
+        # "CHANGELOG*"
       ]
     ]
   end
