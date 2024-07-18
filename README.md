@@ -13,7 +13,7 @@ ExRock is a logical continuation of [Rocker](https://github.com/Vonmo/rocker) - 
 The package can be installed by adding `ex_rock` to your list of dependencies in `mix.exs`:
 ```
 def deps do
-  [{:ex_rock, "~> 0.1.0"}]
+  [{:ex_rock, "~> 0.1.1"}]
 end
 ```
 
