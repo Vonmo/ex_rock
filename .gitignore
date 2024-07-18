@@ -27,3 +27,5 @@ ex_rock-*.tar
 /priv/native/
 
 core
+
+checksum*
