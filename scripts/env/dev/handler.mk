@@ -31,5 +31,5 @@ __ensure_started:
 	@${DOCKER_COMPOSE} up --no-recreate --detach
 
 # -----------------------------------------------------------------------------
-test:
-	@mix test
+test: __ensure_started
+	@make run command='mix test'
