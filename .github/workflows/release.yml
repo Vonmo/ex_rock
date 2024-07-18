@@ -16,8 +16,8 @@ jobs:
       matrix:
         nif: ["2.16", "2.17"]
         job:
-          - { target: aarch64-apple-darwin, os: macos-11 }
-          - { target: x86_64-apple-darwin, os: macos-11 }
+          - { target: aarch64-apple-darwin, os: macos-12 }
+          - { target: x86_64-apple-darwin, os: macos-12 }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04 }
           - {
               target: aarch64-unknown-linux-musl,
