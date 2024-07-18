@@ -1,7 +1,7 @@
 defmodule ExRock.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
   @source_url "https://github.com/Vonmo/ex_rock"
   @changelog_url "https://github.com/Vonmo/ex_rockblob/develop/CHANGELOG.md"
 
@@ -62,9 +62,9 @@ defmodule ExRock.MixProject do
         "checksum-*.exs",
         ".formatter.exs",
         "mix.exs",
-        "README*"
-        # "LICENSE*",
-        # "CHANGELOG*"
+        "README*",
+        "LICENSE*",
+        "CHANGELOG*"
       ]
     ]
   end
