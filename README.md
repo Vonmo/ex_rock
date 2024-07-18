@@ -19,7 +19,7 @@ end
 ## Versions
 | ExRock   | RocksDB |
 | -------- | ------- |
-| 0.1.0  | 8.10.0    |
+| 0.1.x  | 8.10.0    |
 
 
 ## Supported OS
