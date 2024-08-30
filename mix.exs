@@ -45,7 +45,7 @@ defmodule ExRock.MixProject do
       {:elixir_uuid, "~> 1.2", only: [:test, :dev]},
       {:perftest, git: "https://github.com/Vonmo/perftest.git", branch: "master", only: [:test]},
       {:rustler, "~> 0.34.0", optional: true},
-      {:rustler_precompiled, "~> 0.7.1"}
+      {:rustler_precompiled, "~> 0.8.0"}
     ]
   end
 
